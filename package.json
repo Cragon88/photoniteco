@@ -1,0 +1,23 @@
+{
+  "name": "photoniteco",
+  "version": "1.0.0",
+  "description": "A application to manage Niteco's photos",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bower": "^1.5.2",
+    "ejs": "^2.3.1",
+    "express": "~4.9.x",
+    "mongodb-uri": "0.9.7",
+    "mongoose": "4.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cragon88/photoniteco"
+  },
+  "keywords": [],
+  "license": "MIT"
+}
