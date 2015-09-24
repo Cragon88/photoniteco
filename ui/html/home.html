@@ -1,5 +1,48 @@
-<div class="col-xs-10">
+<div class="col-xs-12">
     <div class="well">
-        <h3 class="text-danger">Content Example</h3><br/>
+        <div class="container">
+            <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:40px;">
+                <h3 style="font-family:arial; font-weight:bold; font-size:30px;">
+                    <a style="text-decoration:none; color:#666;" href="http://fearlessflyer.com/create-a-responsive-photo-gallery-with-bootstrap">Responsive Photo Gallery with Bootstrap <span style="color:red;">Demo</span></a>
+                </h3>
+                <p>Resize your browser and watch the gallery adapt to the view port size. Clicking on an image will activate the Modal. Click <strong><a style="color:red" href="http://fearlessflyer.com/create-a-responsive-photo-gallery-with-bootstrap">Here</a></strong> to go back to the tutorial</p>
+            </div>
+
+            <ul class="row">
+                <li ng-repeat="img in imgs" class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                    <img class="img-responsive" src="/imgs/{{img}}" ng-click="selectImg($index, img)">
+                </li>
+            </ul>
+
+            <div class="row">
+                <abn-tree
+                        tree-data         = "my_treedata"
+                        tree-control      = "my_tree"
+                        on-select         = "my_tree_handler(branch)"
+                        expand-level      = "2"
+                        initial-selection = "Vegetable"
+                        additionnal-attr  = "test"></abn-tree>
+            </div>
+        </div> <!-- /container -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <span translate>Cancel</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="confirmModal()">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <span translate>OK</span>
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
 </div>
+
+

@@ -1,79 +1,11 @@
 body {
-  padding-top: 60px;
+  padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
-/*#videoFrame{
-  background-image: url("/imgs/tv.gif");
-  background-repeat: no-repeat;
-}*/
-.height-sm{
-  height: 200px;
+.portfolio-item {
+  margin-bottom: 25px;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.fit-width {
-  max-width:100%;
-}
-.main-header{
-  background-color: #5b5b97;
-  color: #fff;
-  padding-right: 15px;
-}
-
-.main-header.navbar-inverse.red-navbar {
-  padding-right: 15px;
-  background-color: rgb(240,150,37);
-  background-image: -webkit-linear-gradient(top,rgb(255,172,38)#3c3c3c 0,rgb(204,120,37) 100%);
-  background-image: linear-gradient(to bottom,rgb(255,172,38) 0,rgb(204,120,37) 100%);
-  background-repeat: repeat-x;
-  color: #fff;
-}
-.main-header .container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 5px;
-}
-.main-header .navbar-right { float: right !important; }
-.main-header .navbar-text { float: left; margin-left: 15px; margin-right: 15px; display: block; }
-.main-header p { margin-bottom: 0px; }
-.main-header .navbar-text { margin-top: 6px; margin-bottom: 0px; }
-.main-header.navbar-inverse .navbar-text { color: #fff; }
-.main-header .navbar-btn { margin-top: 5px; margin-bottom: 0px; }
-.main-header .navbar-header { float: left; }
-body .main-header { min-height: 35px; }
-
-
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
-  color: #fff;
-  background-color: #428bca;
-}
-
-.nav-pills>li>a {
-  border-radius: 0;
-}
-
-a {
-  color: #000;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #000;
-  text-decoration: none;
-}
-
-.nav-stacked>li, .nav-stacked>li+li{
-  margin-top: 0;
-  margin-left: 0;
-}
-
-.margin-top-50 {
-  margin-top: 50px;
-}
-
-.padding-sm-left {
-  padding-left: 15px;
+footer {
+  margin: 50px 0;
 }

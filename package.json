@@ -8,6 +8,8 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "angular": "^1.5.0-beta.0",
+    "angular-route": "^1.5.0-beta.0",
     "bower": "^1.5.2",
     "ejs": "^2.3.1",
     "express": "~4.9.x",
