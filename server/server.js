@@ -16,12 +16,13 @@ db.on('error', console.error.bind(console, 'Database connect error!'));
 db.once('open', function callback () {
   console.log('Database connect successfully!')
 });
-
+require('./models/photo.js');
 
 /*
  * Configure application
  */
 var app = express();
+require("./routes.js")(app);
 app.set('port', (process.env.PORT || 8000));
 app.use(express.static(path.dirname(__dirname) + '/ui'));
 app.use(express.static(path.dirname(__dirname) + '/views'));

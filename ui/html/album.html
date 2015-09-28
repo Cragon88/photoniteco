@@ -33,8 +33,8 @@
             <h3 class="page-header">Album Photos</h3>
         </div>
 
-        <div ng-repeat="photo in album.photos" class="col-sm-2 col-xs-6">
-            <a href="#">
+        <div id="links" ng-repeat="photo in album.photos" class="col-sm-2 col-xs-6">
+            <a href="{{photo.path}}" data-gallery>
                 <img class="img-responsive portfolio-item" src="{{photo.path}}" alt="">
             </a>
         </div>
