@@ -1,65 +1,22 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">{{chosenPhoto.name}}
-                <small>{{chosenPhoto.description}}</small>
-            </h1>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-8">
-            <a href="#">
-                <img class="img-responsive" src="{{chosenPhoto.path}}" alt="">
-            </a>
-        </div>
-
         <div class="col-md-4">
             <h3>{{album.title}}</h3>
             <p><i>{{album.description}}</i></p>
-            <!--<ul>-->
-                <!--<li>Lorem Ipsum</li>-->
-                <!--<li>Dolor Sit Amet</li>-->
-                <!--<li>Consectetur</li>-->
-                <!--<li>Adipiscing Elit</li>-->
-            <!--</ul>-->
         </div>
-
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header">Album Photos</h3>
-        </div>
+        <!--<div class="col-lg-12">-->
+            <!--<h3 class="page-header">Album Photos</h3>-->
+        <!--</div>-->
 
         <div id="links" ng-repeat="photo in album.photos" class="col-sm-2 col-xs-6">
             <a href="{{photo.path}}" data-gallery>
                 <img class="img-responsive portfolio-item" src="{{photo.path}}" alt="">
             </a>
         </div>
-
-        <!--<div class="col-sm-3 col-xs-6">-->
-            <!--<a href="#">-->
-                <!--<img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
-            <!--</a>-->
-        <!--</div>-->
-
-        <!--<div class="col-sm-3 col-xs-6">-->
-            <!--<a href="#">-->
-                <!--<img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
-            <!--</a>-->
-        <!--</div>-->
-
-        <!--<div class="col-sm-3 col-xs-6">-->
-            <!--<a href="#">-->
-                <!--<img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
-            <!--</a>-->
-        <!--</div>-->
-
     </div>
-    <!-- /.row -->
-
     <hr>
 
     <!-- Footer -->
