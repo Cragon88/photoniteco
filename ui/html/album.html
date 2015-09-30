@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h3>{{album.title}}</h3>
             <p><i>{{album.description}}</i></p>
         </div>
@@ -12,8 +12,8 @@
         <!--</div>-->
 
         <div id="links" ng-repeat="photo in album.photos" class="col-sm-2 col-xs-6">
-            <a href="{{photo.path}}" data-gallery>
-                <img class="img-responsive portfolio-item" src="{{photo.path}}" alt="">
+            <a href="/imgs/{{photo.year}}/{{photo.photoName}}" data-gallery>
+                <img class="img-responsive portfolio-item" src="/imgs/{{photo.year}}/{{photo.photoName}}" alt="">
             </a>
         </div>
     </div>

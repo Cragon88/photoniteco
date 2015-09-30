@@ -21,38 +21,8 @@ angular.module('myApp', ['ui.router'])
 /*
 ------------------------Controllers----------------------------
 */
-    .controller('MainController', ['$rootScope', '$scope', function($rootScope, $scope) {
-        $scope.album = {
-            title: "Aug Birthday & Emp.Anniversary",
-            description : "2015.08.28",
-            photos: [
-                {
-                    name: 'IMG_1205.JPG',
-                    path: '/imgs/IMG_1205.JPG'
-                },
-                {
-                    name: 'IMG_1212.JPG',
-                    path: '/imgs/IMG_1212.JPG'
-                },
-                {
-                    name: 'IMG_1203.JPG',
-                    path: '/imgs/IMG_1203.JPG'
-                },
-                {
-                    name: 'IMG_1204.JPG',
-                    path: '/imgs/IMG_1204.JPG'
-                },
-                {
-                    name: 'IMG_1203.JPG',
-                    path: '/imgs/IMG_1203.JPG'
-                },
-                {
-                    name: 'IMG_1211.JPG',
-                    path: '/imgs/IMG_1211.JPG'
-                }
-            ]
-        };
-        $scope.chosenPhoto =  $scope.album.photos[0];
+    .controller('MainController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
+        $scope.album = {};
         $scope.selectImg = function($index, img) {
             var img = '<img src="/imgs/' + img + '" class="img-responsive"/>';
             //start of new code new code
@@ -77,10 +47,24 @@ angular.module('myApp', ['ui.router'])
             $scope.chosenPhoto = img;
         };
 
+        $scope.getPhotos = function(year) {
+            $http.get('/photos/'+year)
+                .success(function(data, status, headers, config) {
+                    $scope.album.title = data[0].albumName;
+                    $scope.album.description = data[0].year;
+                    $scope.album.photos = data;
+                })
+                .error(function(data, status, headers, config) {
+                    $scope.album = {};
+                });
+        }
+
         $scope.my_treedata = [{
             label: 'Languages',
             children: ['Jade','Less','Coffeescript']
         }]
+
+        $scope.getPhotos(2014);
     }])
 ;
 

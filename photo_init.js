@@ -46,7 +46,7 @@ function insertPhoto(album) {
             console.log( 'Album: '+album+"   "+path.basename(f));
 
             var Photo = mongoose.model('Photo');
-            var p = new Photo({year: album, albumName: '', photoName: path.basename(f)});
+            var p = new Photo({year: album, albumName: 'Aug Birthday and Emp.Anniversary', photoName: path.basename(f)});
             p.save(function(err, result){
                 if(err) {
                     console.log('Can not insert document.............')

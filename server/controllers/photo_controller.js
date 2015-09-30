@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Photo = mongoose.model('Photo');
 
 exports.getPhotos = function(req, res) {
-    Photo.find()
+    var year = req.params.year;
+    Photo.find({year:year})
     .exec(function(err, photos) {
         if (!photos){
           res.json(404, {msg: 'Photo Not Found.'});
