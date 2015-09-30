@@ -73,6 +73,10 @@ angular.module('myApp', ['ui.router'])
             });
         };
 
+        $scope.selectImage = function(img) {
+            $scope.chosenPhoto = img;
+        };
+
         $scope.my_treedata = [{
             label: 'Languages',
             children: ['Jade','Less','Coffeescript']
