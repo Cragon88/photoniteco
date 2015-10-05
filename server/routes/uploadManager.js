@@ -1,8 +1,8 @@
 // config the uploader
 var options = {
-    tmpDir: __dirname + '/../ui/uploaded/tmp',
-    publicDir: __dirname + '/../ui/uploaded',
-    uploadDir: __dirname + '/../ui/uploaded/files',
+    tmpDir: __dirname + '/../uploaded/tmp',
+    publicDir: __dirname + '/../uploaded',
+    uploadDir: __dirname + '/../uploaded/files',
     uploadUrl: '/uploaded/files/',
     maxPostSize: 11000000000, // 11 GB
     minFileSize: 1,
