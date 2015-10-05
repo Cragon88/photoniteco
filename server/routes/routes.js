@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 module.exports = function(app) {
-  var photo = require('../server/controllers/photo_controller');
+  var photo = require('../controllers/photo_controller');
   app.get('/photos/:year', photo.getPhotos);
   app.post('/photo/add', photo.addPhoto);
 

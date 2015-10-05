@@ -22,7 +22,9 @@ require('./models/photo.js');
  * Configure application
  */
 var app = express();
-require("./routes.js")(app);
+require("./routes/routes.js")(app);
+require('./routes/uploadManager')(app);
+
 app.set('port', (process.env.PORT || 8000));
 app.use(express.static(path.dirname(__dirname) + '/ui'));
 app.use(express.static(path.dirname(__dirname) + '/views'));
@@ -33,6 +35,10 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   response.render('index');
+});
+
+app.get('/upload', function(request, response) {
+  response.render('upload');
 });
 
 app.listen(app.get('port'), function() {
