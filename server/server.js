@@ -1,4 +1,5 @@
 var path = require('path');
+var bodyParser = require('body-parser');
 var express = require('express');
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
@@ -24,10 +25,12 @@ require('./models/photo.js');
 var app = express();
 require("./routes/routes.js")(app);
 require('./routes/uploadManager')(app);
-
-app.set('port', (process.env.PORT || 8000));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser());
 app.use(express.static(path.dirname(__dirname) + '/ui'));
 app.use(express.static(path.dirname(__dirname) + '/views'));
+
+app.set('port', (process.env.PORT || 8000));
 
 // views is directory for all template files
 app.set('views', path.dirname(__dirname) + '/views');
