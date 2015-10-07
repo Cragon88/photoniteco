@@ -8,6 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var folderApi     = require('./checkFolder.js');
 var dd = require('date-utils');
+var mongoose = require('mongoose');
 
 module.exports = uploadService;
 
@@ -66,6 +67,31 @@ function uploadService(opts) {
             });
 
             if (allFilesProccessed) {
+                var Albums = mongoose.model('Albums');
+                Albums.findOne({name : transporter.albumName})
+                .exec(function(err, album) {
+                    if (!album){
+                        var photoArr = [files[0].name];
+                        var al = new Albums({name: transporter.albumName, date: new Date(),
+                            path: 'uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName, photos : photoArr});
+
+                        al.save(function(err, result){
+                            if(err) {
+                                console.log('Can not insert Album.............')
+                            }
+                        });
+                    } else {
+                        album.photos.push([files[0].name]);
+                        album.save(function(err, result){
+                            if(err) {
+                                console.log('Can not update Album.............')
+                            }
+                        });
+                    }
+
+                });
+                var p = new Albums({name: transporter.albumName, date: Date.now,
+                                    path: 'uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName, });
                 callback(null, {
                     files: files
                 }, redirect);
