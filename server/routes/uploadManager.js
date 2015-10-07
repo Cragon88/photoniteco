@@ -1,7 +1,6 @@
 // config the uploader
 var options = {
     tmpDir: __dirname + '/../uploaded/tmp',
-    publicDir: __dirname + '/../uploaded',
     uploadDir: __dirname + '/../uploaded/files',
     uploadUrl: '/uploaded/files/',
     maxPostSize: 11000000000, // 11 GB
@@ -29,7 +28,7 @@ var options = {
     }
 };
 
-var uploader = require('blueimp-file-upload-expressjs')(options);
+var uploader = require('../lib/uploadHandler.js')(options);
 
 
 module.exports = function(router) {

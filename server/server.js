@@ -40,7 +40,7 @@ app.get('/', function(request, response) {
   response.render('index');
 });
 
-app.get('/upload', function(request, response) {
+app.get('/upload-photos', function(request, response) {
   response.render('upload');
 });
 
