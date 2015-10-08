@@ -1,4 +1,5 @@
 // config the uploader
+var fs = require('fs');
 var options = {
     tmpDir: __dirname + '/../uploaded/tmp',
     uploadDir: __dirname + '/../uploaded/files',
@@ -51,5 +52,20 @@ module.exports = function(router) {
             res.send(JSON.stringify(obj));
         });
     });
+
+    router.get('/uploaded/files/:file', function(req, res) {
+        uploader.getFullSizeFile(req, res, function(err, data) {
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(data, 'binary');
+        });
+    });
+
+    router.get('/uploaded/files/thumbnail/:file', function(req, res) {
+        uploader.getThumbsFile(req, res, function(err, data) {
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(data, 'binary');
+        });
+    });
+
     return router;
 }

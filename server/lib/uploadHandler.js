@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var folderApi     = require('./checkFolder.js');
 var dd = require('date-utils');
-var mongoose = require('mongoose');
+var AlbumsBo = require('./bo/AlbumsBo.js');
 
 module.exports = uploadService;
 
@@ -67,31 +67,9 @@ function uploadService(opts) {
             });
 
             if (allFilesProccessed) {
-                var Albums = mongoose.model('Albums');
-                Albums.findOne({name : transporter.albumName})
-                .exec(function(err, album) {
-                    if (!album){
-                        var photoArr = [files[0].name];
-                        var al = new Albums({name: transporter.albumName, date: new Date(),
-                            path: 'uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName, photos : photoArr});
-
-                        al.save(function(err, result){
-                            if(err) {
-                                console.log('Can not insert Album.............')
-                            }
-                        });
-                    } else {
-                        album.photos.push([files[0].name]);
-                        album.save(function(err, result){
-                            if(err) {
-                                console.log('Can not update Album.............')
-                            }
-                        });
-                    }
+                AlbumsBo.saveFileUploaded(transporter, files, function(err, album){
 
                 });
-                var p = new Albums({name: transporter.albumName, date: Date.now,
-                                    path: 'uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName, });
                 callback(null, {
                     files: files
                 }, redirect);
@@ -151,6 +129,22 @@ function uploadService(opts) {
 
     fileUploader.delete = function(req, res, callback) {
         transporter.delete(req, res, callback);
+    };
+
+    fileUploader.getThumbsFile = function(req, res, callback) {
+        var file = req.params.file;
+        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/' + file, function (err, data) {
+            if (err) throw err;
+            callback(err, data);
+        });
+    };
+
+    fileUploader.getFullSizeFile = function(req, res, callback) {
+        var file = req.params.file;
+        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/' + file, function (err, data) {
+            if (err) throw err;
+            callback(err, data);
+        });
     };
 
     return fileUploader;
