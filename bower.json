@@ -23,6 +23,7 @@
     "angular-bootstrap-nav-tree": "*",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
-    "bootstrap-datepicker": "~1.4.1"
+    "bootstrap-datepicker": "~1.4.1",
+    "angular-animate": "~1.4.7"
   }
 }

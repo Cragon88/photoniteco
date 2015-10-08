@@ -40,11 +40,31 @@
   <title>Photo Niteco</title>
 
   <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+  <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">-->
   <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/app.css" />
 
   <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
   <link rel="stylesheet" href="/stylesheets/bootstrap-image-gallery.min.css">
+
+
+
+  <link rel="stylesheet" href="/libs/treeview/abn_tree.css">
+  <!--<script src="/libs/treeview/abn_tree_directive.js"></script>-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-animate.js"></script>
+
+  <!--<script src="/libs/angular-animate.min.js"></script>-->
+  <!--<script src="/libs/angular.min.js"></script>-->
+
+  <script src="/libs/jquery.min.js"></script>
+  <script src="/libs/angular-ui-router.min.js"></script>
+  <script src="/libs/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+
+  <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+  <script src="/javascripts/bootstrap-image-gallery.min.js"></script>
 
 </head>
 
@@ -88,39 +108,27 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<!-- Navigation -->
-<!--<nav class="navbar navbar-default navbar-fixed-top" role="navigation">-->
-  <!--<div class="container">-->
-    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-    <!--<div class="navbar-header">-->
-      <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
-        <!--<span class="sr-only">Toggle navigation</span>-->
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-      <!--</button>-->
-      <!--<span class="navbar-brand">Niteco</span>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-    <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-      <!--<ul class="nav navbar-nav">-->
-        <!--<li class="dropdown">-->
-          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">2015<span class="caret"></span></a>-->
-          <!--<ul class="dropdown-menu">-->
-            <!--<li><a href="#">2015.08.28 Aug Birthday and Emp.Anniversary</a></li>-->
-            <!--<li><a href="#">2015.09.17 Niteco Football Club</a></li>-->
-          <!--</ul>-->
-        <!--</li>-->
-
-        <!--<li>-->
-          <!--<a href="#">2013</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-  <!--</div>-->
-  <!--&lt;!&ndash; /.container &ndash;&gt;-->
-<!--</nav>-->
+<br/><br/>
+<div class="row">
+  <div  style="vertical-align:top" abn-tree class="col-sm-2">
+    <div style="width:250px;margin-left:20px;background:whitesmoke;border:1px solid lightgray;border-radius:5px;">
+        <abn-tree tree-data="my_data" tree-control="my_tree" on-select="my_tree_handler(branch)" expand-level="2" initial-selection="Granny Smith"></abn-tree>
+    </div>
+  </div>
+  <div class="col-sm-10" ui-view="main"></div>
+</div>
+<div>
+  <hr>
+  <!-- Footer -->
+  <footer>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright &copy; Niteco Company 2015</p>
+      </div>
+    </div>
+    <!-- /.row -->
+  </footer>
+</div>
 
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">
@@ -156,18 +164,6 @@
     </div>
   </div>
 </div>
-
-<div ui-view="main"></div>
-
-<script src="/libs/jquery.min.js"></script>
-<script src="/libs/angular.min.js"></script>
-<script src="/libs/angular-ui-router.min.js"></script>
-<script src="/libs/bootstrap.min.js"></script>
-<script src="app.js"></script>
-
-<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-<script src="/javascripts/bootstrap-image-gallery.min.js"></script>
-
 </body>
 
 </html>
