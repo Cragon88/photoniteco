@@ -4,24 +4,25 @@ angular.module('myApp', ['angularBootstrapNavTree', 'ui.router', 'ngAnimate'])
 /*
 ------------------------Configurations----------------------------
 */
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
-        $stateProvider
-            .state('home', {
-                url : '/home',
-                views: {
-                    "main" : {
-                        templateUrl : '/html/album.html',
-                        controller : 'MainController'
-                    }
-                }
-            })
-    }])
+    //.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    //    $urlRouterProvider.otherwise('/home');
+    //    $stateProvider
+    //        .state('home', {
+    //            url : '/home',
+    //            views: {
+    //                "main" : {
+    //                    templateUrl : '/html/album.html',
+    //                    controller : 'MainController'
+    //                }
+    //            }
+    //        })
+    //}])
 /*
 ------------------------Controllers----------------------------
 */
     .controller('MainController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
         $scope.album = {};
+        $scope.content = '/html/album.html';
         $scope.selectImg = function($index, img) {
             var img = '<img src="/imgs/' + img + '" class="img-responsive"/>';
             //start of new code new code
@@ -41,6 +42,10 @@ angular.module('myApp', ['angularBootstrapNavTree', 'ui.router', 'ngAnimate'])
                 $('#myModal .modal-body').html('');
             });
         };
+
+        $scope.goUpload = function() {
+            $scope.content = '/html/upload.html';
+        }
 
         $scope.selectImage = function(img) {
             $scope.chosenPhoto = img;

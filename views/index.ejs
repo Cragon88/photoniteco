@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,31 +8,46 @@
   <meta name="author" content="">
 
   <title>Photo Niteco</title>
+  <!-- JQUERY-->
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!--<script src="/libs/jquery.min.js"></script>-->
 
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/blueimp-gallery.min.css">
+  <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+  <link rel="stylesheet" href="/stylesheets/jquery.fileupload.css">
+  <link rel="stylesheet" href="/stylesheets/jquery.fileupload-ui.css">
+
+  <link rel="stylesheet" href="/stylesheets/datepicker/bootstrap-datepicker.min.css">
+
+
+  <!-- BOOTSTRAP-->
   <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+  <script src="/libs/bootstrap.min.js"></script>
   <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">-->
   <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/app.css" />
 
+  <!-- blueimp-bootstrap-image-gallery-->
   <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
   <link rel="stylesheet" href="/stylesheets/bootstrap-image-gallery.min.css">
+  <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+  <script src="/javascripts/bootstrap-image-gallery.min.js"></script>
 
+  <!-- TREE VIEW-->
   <link rel="stylesheet" href="/libs/treeview/abn_tree.css">
   <!--<script src="/libs/treeview/abn_tree_directive.js"></script>-->
 
+  <!-- ANGULARJS-->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-animate.js"></script>
-
   <!--<script src="/libs/angular-animate.min.js"></script>-->
   <!--<script src="/libs/angular.min.js"></script>-->
-
-  <script src="/libs/jquery.min.js"></script>
   <script src="/libs/angular-ui-router.min.js"></script>
-  <script src="/libs/bootstrap.min.js"></script>
-  <script src="app.js"></script>
 
-  <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-  <script src="/javascripts/bootstrap-image-gallery.min.js"></script>
+  <!-- APP -->
+  <script src="app.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="MainController">
@@ -51,8 +64,8 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/upload-photos">Upload</a></li>
-        <li><a href="#">Settings</a></li>
+        <li><a href="/upload-photos">Open Form Upload(Good)</a></li>
+        <li><button type="button" class="btn btn-default navbar-btn" ng-click="goUpload()">Upload On This Page</button></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Help</a></li>
       </ul>
@@ -68,7 +81,7 @@
       </div>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <div class="table-responsive" ui-view="main"/>
+      <div class="table-responsive" ng-include="content"/>
     </div>
   </div>
 </div>
@@ -107,5 +120,45 @@
     </div>
   </div>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/javascripts/uploader/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="/javascripts/uploader/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="/javascripts/uploader/load-image.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="/javascripts/uploader/canvas-to-blob.min.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="/javascripts/uploader/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="/javascripts/uploader/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="/javascripts/uploader/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="/javascripts/uploader/jquery.fileupload-ui.js"></script>
+<!-- The main application script -->
+<script src="/javascripts/uploader/main.js"></script>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="/javascripts/uploader/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+<script src="/javascripts/datepicker/bootstrap-datepicker.js"></script>
+
+
 </body>
 </html>
