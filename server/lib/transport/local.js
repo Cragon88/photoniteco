@@ -2,6 +2,8 @@
 var fs = require('fs');
 var FileInfo = require('../fileinfo.js');
 //var lwip = require('../lwip');
+//var gm = require('gm');
+//var fsExtra = require('fs-extra');
 var path = require('path');
 var async = require('async');
 
@@ -39,6 +41,50 @@ module.exports = function(opts) {
 
             var options = api.options;
             var retVal = versionObj;
+
+            //gm(options.uploadDir + '/' + versionObj.fileInfo.name).size(function(error, image) {
+            //
+            //    if (error) {
+            //        console.log(error);
+            //        fsExtra.copy(options.uploadDir + '/' + versionObj.fileInfo.name, options.uploadDir + '/' + versionObj.version + '/' + versionObj.fileInfo.name, function (err) {
+            //            if (err) return console.error(err)
+            //            console.log("success!");
+            //        }) // copies file
+            //        //return cbk(error, versionObj.version);
+            //        return cbk(null, versionObj.version);
+            //    }
+            //
+            //    //update pics width and height
+            //    if (!retVal.fileInfo.width) {
+            //        retVal.fileInfo.width = image.width || 50; //incase we don't get a valid width
+            //        retVal.fileInfo.height = image.height || retVal.fileInfo.width;
+            //    }
+            //
+            //    var opts0 = options.imageVersions[versionObj.version];
+            //    if (opts0.height == 'auto') {
+            //
+            //        retVal.width = opts0.width;
+            //        retVal.height = (opts0.width / retVal.fileInfo.width) * retVal.fileInfo.height;
+            //        gm(options.uploadDir + '/' + versionObj.fileInfo.name).resize(opts0.width, retVal.height).write(options.uploadDir + '/' + versionObj.version + '/' + versionObj.fileInfo.name, function(err) {
+            //            if (err) {
+            //                cbk(err, retVal);
+            //                return;
+            //            }
+            //            cbk(null, retVal);
+            //        });
+            //        return;
+            //    }
+            //    retVal.width = opts0.width;
+            //    retVal.height = opts0.height;
+            //    gm(options.uploadDir + '/' + versionObj.fileInfo.name).resize(opts0.width, opts0.height).write(options.uploadDir + '/' + versionObj.version + '/' + versionObj.fileInfo.name, function(err) {
+            //        if (err) {
+            //            return cbk(err, retVal);
+            //        }
+            //        cbk(null, retVal);
+            //    });
+            //
+            //});
+
 
             lwip.open(options.uploadDir + '/' + versionObj.fileInfo.name, function(error, image) {
 

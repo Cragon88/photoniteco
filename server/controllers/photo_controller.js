@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Photo = mongoose.model('Photo');
-var photoUntil = require('../photountil/photo_until.js');
 
 exports.getPhotos = function(req, res) {
     var year = req.params.year;
@@ -9,9 +8,6 @@ exports.getPhotos = function(req, res) {
         if (!photos){
           res.json(404, {msg: 'Photo Not Found.'});
         } else {
-            //Test Photo API.
-            //var fullPath = '/ui/imgs/2015/MalaysiaCompanyTrip/IMG_1654.JPG';
-            //photoUntil.resize(fullPath);
             res.json(photos);
         }
     });

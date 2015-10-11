@@ -1,6 +1,10 @@
-'use strict';
 
-angular.module('myApp', ['angularBootstrapNavTree', 'ui.router', 'ngAnimate'])
+var deps = ['angularBootstrapNavTree', 'ui.router'];
+
+if (angular.version.full.indexOf("1.2") >= 0) {
+    deps.push('ngAnimate');
+}
+angular.module('myApp', deps)
 /*
 ------------------------Configurations----------------------------
 */
@@ -61,7 +65,12 @@ angular.module('myApp', ['angularBootstrapNavTree', 'ui.router', 'ngAnimate'])
                 .error(function(data, status, headers, config) {
                     $scope.album = {};
                 });
-        }
+        };
+
+        $scope.my_tree_handler = function(branch) {
+            console.log('1');
+             console.log(branch);
+        };
 
         $scope.my_treedata = [{
             label: 'Languages',
@@ -69,6 +78,8 @@ angular.module('myApp', ['angularBootstrapNavTree', 'ui.router', 'ngAnimate'])
         }];
 
         var apple_selected = function(branch) {
+            console.log('2');
+            console.log(branch);
             return $scope.output = "APPLE! : " + branch.label;
         };
 
@@ -189,7 +200,6 @@ $(document).on('click', 'a.controls', function(){
 
     return false;
 });
-'use strict';
 
 var NavTree = angular.module('angularBootstrapNavTree', []);
 var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
