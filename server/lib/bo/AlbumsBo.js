@@ -12,7 +12,7 @@ AlbumsBo.saveFileUploaded = function(transporter, files, cb) {
         .exec(function(err, album) {
             if (!album){
                 var photoArr = [files[0].name];
-                var al = new Albums({name: transporter.albumName, date: new Date(),
+                var al = new Albums({name: transporter.albumName, date: new Date(transporter.albumYear, transporter.albumMonth - 1, transporter.albumDay),
                     path: 'uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName, photos : photoArr});
 
                 al.save(function(err, result){

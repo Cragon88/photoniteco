@@ -18,3 +18,11 @@ var Albums = new Schema({
 }, { _id: true });
 
 mongoose.model('Albums', Albums);
+
+var Menus = new Schema({
+    year:Number,
+    month:Number,
+    albumNames: [String]
+}, { _id: true });
+
+mongoose.model('Menus', Menus);

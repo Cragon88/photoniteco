@@ -1,21 +1,23 @@
 var fs = require('fs');
 var mkdirp  = require('mkdirp');
 var path = require('path');
+var MenusBo = require('./bo/MenusBo.js');
 /**
  * check if folder exists, otherwise create it
  */
 var folderApi = {};
-folderApi.checkExists = function checkExists(options, cb) {
-  fs.exists(options.uploadDir, function(exists) {
+folderApi.checkExists = function checkExists(transporter, cb) {
+  fs.exists(transporter.options.uploadDir, function(exists) {
     if (!exists) {
-      mkdirp(options.uploadDir, function(err) {
+      mkdirp(transporter.options.uploadDir, function(err) {
         if (err) console.error(err);
         else {
-          console.log('The uploads folder was not present, we have created it for you [' + options.uploadDir + ']');
-          mkdirp(path.join(options.uploadDir, 'thumbnail'), function(err) {
+          console.log('The uploads folder was not present, we have created it for you [' + transporter.options.uploadDir + ']');
+          mkdirp(path.join(transporter.options.uploadDir, 'thumbnail'), function(err) {
             if (err) console.error(err);
             else {
-              console.log('The uploads folder was not present, we have created it for you [' + path.join(options.uploadDir, 'thumbnail') + ']')
+              console.log('The uploads folder was not present, we have created it for you [' + path.join(transporter.options.uploadDir, 'thumbnail') + ']');
+              MenusBo.insert(new Date(transporter.albumYear, transporter.albumMonth, transporter.albumDay),  transporter.albumName);
               if(cb) cb();
             }
           });

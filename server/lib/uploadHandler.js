@@ -93,6 +93,7 @@ function uploadService(opts) {
                 var parts = value.split('/');
                 transporter.albumYear = parts[2];
                 transporter.albumMonth = parts[0];
+                transporter.albumDay = parts[1];
             } else if(name === 'albumName') {
                 transporter.albumName = value;
             }
@@ -105,7 +106,7 @@ function uploadService(opts) {
                 return;
             }
             transporter.options.uploadDir = __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName;
-            folderApi.checkExists(transporter.options, function() {
+            folderApi.checkExists(transporter, function() {
                 transporter.post(fileInfo, file, finish);
             });
         }).on('aborted', function() {
@@ -133,7 +134,7 @@ function uploadService(opts) {
 
     fileUploader.getThumbsFile = function(req, res, callback) {
         var file = req.params.file;
-        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/' + file, function (err, data) {
+        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/thumbnail/'  + file, function (err, data) {
             if (err) throw err;
             callback(err, data);
         });
