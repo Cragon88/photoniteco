@@ -26,3 +26,16 @@ var Menus = new Schema({
 }, { _id: true });
 
 mongoose.model('Menus', Menus);
+
+var AL = new Schema ({
+    albumName: String,
+    photoNames :[String]
+});
+var Tests = new Schema({
+    year:Number,
+    month:Number,
+    albums: [AL]
+}, { _id: true });
+
+mongoose.model('Tests', Tests);
+

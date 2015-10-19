@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var folderApi     = require('./checkFolder.js');
 var dd = require('date-utils');
-var AlbumsBo = require('./bo/AlbumsBo.js');
+var TestsBo = require('./bo/TestsBo.js');
 
 module.exports = uploadService;
 
@@ -67,7 +67,7 @@ function uploadService(opts) {
             });
 
             if (allFilesProccessed) {
-                AlbumsBo.saveFileUploaded(transporter, files, function(err, album){
+                TestsBo.saveFileUploaded(transporter, files, function(err, album){
 
                 });
                 callback(null, {
