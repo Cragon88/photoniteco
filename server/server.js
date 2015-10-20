@@ -17,20 +17,21 @@ db.on('error', console.error.bind(console, 'Database connect error!'));
 db.once('open', function callback () {
   console.log('Database connect successfully!')
 });
-require('./models/photo.js');
+
+require('./models/Albums.js');
 
 /*
  * Configure application
  */
 var app = express();
-require("./routes/routes.js")(app);
+//require("./routes/routes.js")(app);
 require('./routes/uploadManager')(app);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser());
 app.use(express.static(path.dirname(__dirname) + '/ui'));
 app.use(express.static(path.dirname(__dirname) + '/views'));
 
-app.set('port', (process.env.PORT || 8000));
+app.set('port', (process.env.PORT || 5000));
 
 // views is directory for all template files
 app.set('views', path.dirname(__dirname) + '/views');

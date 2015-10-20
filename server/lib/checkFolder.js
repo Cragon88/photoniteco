@@ -1,7 +1,6 @@
 var fs = require('fs');
 var mkdirp  = require('mkdirp');
 var path = require('path');
-var MenusBo = require('./bo/MenusBo.js');
 /**
  * check if folder exists, otherwise create it
  */
@@ -17,7 +16,6 @@ folderApi.checkExists = function checkExists(transporter, cb) {
             if (err) console.error(err);
             else {
               console.log('The uploads folder was not present, we have created it for you [' + path.join(transporter.options.uploadDir, 'thumbnail') + ']');
-              MenusBo.insert(new Date(transporter.albumYear, transporter.albumMonth, transporter.albumDay),  transporter.albumName);
               if(cb) cb();
             }
           });

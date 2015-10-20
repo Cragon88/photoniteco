@@ -26,6 +26,7 @@ angular.module('myApp', deps)
 */
     .controller('MainController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
         $scope.album = {};
+        $scope.albums = [];
         $scope.content = '/html/album.html';
         $scope.selectImg = function($index, img) {
             var img = '<img src="/imgs/' + img + '" class="img-responsive"/>';
@@ -49,7 +50,7 @@ angular.module('myApp', deps)
 
         $scope.goUpload = function() {
             $scope.content = '/html/upload.html';
-        }
+        };
 
         $scope.selectImage = function(img) {
             $scope.chosenPhoto = img;
@@ -65,6 +66,15 @@ angular.module('myApp', deps)
                 .error(function(data, status, headers, config) {
                     $scope.album = {};
                 });
+        };
+
+        $scope.getAlbums = function() {
+            $http.get('/albums/')
+                .success(function(data, status, headers, config) {
+                    $scope.albums= data;
+                    console.log("albums");
+                    console.log(data);
+                })
         };
 
         $scope.my_tree_handler = function(branch) {
@@ -162,7 +172,7 @@ angular.module('myApp', deps)
 
         $scope.my_data = treedata_avm;
 
-        $scope.getPhotos(2014);
+        $scope.getAlbums();
     }])
 ;
 

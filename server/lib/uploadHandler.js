@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var folderApi     = require('./checkFolder.js');
 var dd = require('date-utils');
-var TestsBo = require('./bo/TestsBo.js');
+var AlbumsBo = require('./bo/AlbumsBo.js');
 
 module.exports = uploadService;
 
@@ -67,7 +67,8 @@ function uploadService(opts) {
             });
 
             if (allFilesProccessed) {
-                TestsBo.saveFileUploaded(transporter, files, function(err, album){
+                console.log("All file uploaded!");
+                AlbumsBo.saveFileUploaded(transporter, files, function(err, album){
 
                 });
                 callback(null, {
@@ -96,8 +97,10 @@ function uploadService(opts) {
                 transporter.albumDay = parts[1];
             } else if(name === 'albumName') {
                 transporter.albumName = value;
+                transporter.albumFolderName = getStringCode(value);
             }
         }).on('file', function(name, file) {
+            console.log("A file uploaded!");
             var fileInfo = map[FileInfo.getFileKey(file.path)];
             fileInfo.update(file);
             if (!fileInfo.validate()) {
@@ -105,7 +108,7 @@ function uploadService(opts) {
                 fs.unlink(file.path);
                 return;
             }
-            transporter.options.uploadDir = __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName;
+            transporter.options.uploadDir = __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumFolderName;
             folderApi.checkExists(transporter, function() {
                 transporter.post(fileInfo, file, finish);
             });
@@ -122,9 +125,7 @@ function uploadService(opts) {
                 req.connection.destroy();
             }
         }).on('end', function() {
-            //if (configs.storage.type == 'local') {
-            //    finish();
-            //}
+
         }).parse(req);
     };
 
@@ -134,7 +135,7 @@ function uploadService(opts) {
 
     fileUploader.getThumbsFile = function(req, res, callback) {
         var file = req.params.file;
-        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/thumbnail/'  + file, function (err, data) {
+        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumFolderName + '/thumbnail/'  + file, function (err, data) {
             if (err) throw err;
             callback(err, data);
         });
@@ -142,10 +143,22 @@ function uploadService(opts) {
 
     fileUploader.getFullSizeFile = function(req, res, callback) {
         var file = req.params.file;
-        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumName + '/' + file, function (err, data) {
+        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + transporter.albumMonth+ '/' +transporter.albumFolderName + '/' + file, function (err, data) {
             if (err) throw err;
             callback(err, data);
         });
+    };
+
+    var getStringCode = function(str) {
+        var hash = 5381;
+        var i = str.length;
+
+        while(i) hash = (hash * 33) ^ str.charCodeAt(--i);
+
+        /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
+         * integers. Since we want the results to be always positive, convert the
+         * signed int to an unsigned by doing an unsigned bitshift. */
+        return hash >>> 0;
     };
 
     return fileUploader;

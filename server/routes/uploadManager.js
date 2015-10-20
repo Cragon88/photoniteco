@@ -30,6 +30,7 @@ var options = {
 };
 
 var uploader = require('../lib/uploadHandler.js')(options);
+var AlbumsBo = require('../lib/bo/AlbumsBo.js');
 
 
 module.exports = function(router) {
@@ -67,5 +68,21 @@ module.exports = function(router) {
         });
     });
 
+    router.get('/uploaded/files/thumbnail/:file', function(req, res) {
+        uploader.getThumbsFile(req, res, function(err, data) {
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(data, 'binary');
+        });
+    });
+
+    router.get('/albums', function(req, res) {
+        AlbumsBo.findAll(function(err, data){
+            if (err) {
+                console.log("Failure to get menu!")
+            } else {
+                res.json(data);
+            }
+        });
+    });
     return router;
-}
+};

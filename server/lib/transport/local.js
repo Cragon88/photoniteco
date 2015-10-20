@@ -159,7 +159,6 @@ module.exports = function(opts) {
                 fileInfo.initUrls();
                 fileInfo.proccessed = true;
                 finish(err, fileInfo);
-
             });
 
 
