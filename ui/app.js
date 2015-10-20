@@ -28,6 +28,8 @@ angular.module('myApp', deps)
         $scope.album = {};
         $scope.albums = [];
         $scope.content = '/html/album.html';
+        $scope.my_data = [];
+        $scope.my_tree = {};
         $scope.selectImg = function($index, img) {
             var img = '<img src="/imgs/' + img + '" class="img-responsive"/>';
             //start of new code new code
@@ -68,17 +70,62 @@ angular.module('myApp', deps)
                 });
         };
 
-        $scope.getAlbums = function() {
-            $http.get('/albums/')
+        var createTreeNode = function(parent, album, type) {
+            var node = {
+                label: album._id.name,
+                children: [],
+                onSelect: function(branch) {
+                    $scope.select(this, album, type);
+                    $scope.my_tree.expand_branch();
+                }
+            };
+            if (typeof(parent.children) != "undefined") {
+                parent.children.push(node);
+            } else {
+                parent.children = [];
+                parent.children.push(node);
+            }
+        };
+
+        $scope.select = function(node, album, type) {
+            console.log("Select: ");
+            console.log(album);
+            console.log(type);
+            if (type==='y') {
+                $http.get('/albums/month/' + album._id.name)
+                    .success(function(data, status, headers, config) {
+                        for (var i=0; i<data.length; i++) {
+                            createTreeNode(node, data[i], 'm');
+                        }
+                    });
+            } else if (type==='m') {
+                $http.get('/albums/' + album._id.year + '/' + album._id.name)
+                    .success(function(data, status, headers, config) {
+                        for (var i=0; i<data.length; i++) {
+                            createTreeNode(node, data[i], 'n');
+                        }
+                    });
+            } else {
+                //load albums
+            }
+        };
+
+        $scope.getAlbumYears = function() {
+            $http.get('/albums/year')
                 .success(function(data, status, headers, config) {
-                    $scope.albums= data;
-                    console.log("albums");
+                    var root = [];
+                    //$scope.albums= data;
+                    console.log("albums year");
                     console.log(data);
-                })
+                    for (var i=0; i<data.length; i++) {
+                        createTreeNode(root, data[i], 'y');
+                    }
+                    $scope.my_data = root.children;
+                });
         };
 
         $scope.my_tree_handler = function(branch) {
-            console.log('1');
+             console.log('1');
              console.log(branch);
         };
 
@@ -93,86 +140,7 @@ angular.module('myApp', deps)
             return $scope.output = "APPLE! : " + branch.label;
         };
 
-        var treedata_avm = [
-            {
-                label: 'Animal',
-                children: [
-                    {
-                        label: 'Dog',
-                        data: {
-                            description: "man's best friend"
-                        }
-                    }, {
-                        label: 'Cat',
-                        data: {
-                            description: "Felis catus"
-                        }
-                    }, {
-                        label: 'Hippopotamus',
-                        data: {
-                            description: "hungry, hungry"
-                        }
-                    }, {
-                        label: 'Chicken',
-                        children: ['White Leghorn', 'Rhode Island Red', 'Jersey Giant']
-                    }
-                ]
-            }, {
-                label: 'Vegetable',
-                data: {
-                    definition: "A plant or part of a plant used as food, typically as accompaniment to meat or fish, such as a cabbage, potato, carrot, or bean.",
-                    data_can_contain_anything: true
-                },
-                onSelect: function(branch) {
-                    return $scope.output = "Vegetable: " + branch.data.definition;
-                },
-                children: [
-                    {
-                        label: 'Oranges'
-                    }, {
-                        label: 'Apples',
-                        children: [
-                            {
-                                label: 'Granny Smith',
-                                onSelect: apple_selected
-                            }, {
-                                label: 'Red Delicous',
-                                onSelect: apple_selected
-                            }, {
-                                label: 'Fuji',
-                                onSelect: apple_selected
-                            }
-                        ]
-                    }
-                ]
-            }, {
-                label: 'Mineral',
-                children: [
-                    {
-                        label: 'Rock',
-                        children: ['Igneous', 'Sedimentary', 'Metamorphic']
-                    }, {
-                        label: 'Metal',
-                        children: ['Aluminum', 'Steel', 'Copper']
-                    }, {
-                        label: 'Plastic',
-                        children: [
-                            {
-                                label: 'Thermoplastic',
-                                children: ['polyethylene', 'polypropylene', 'polystyrene', ' polyvinyl chloride']
-                            }, {
-                                label: 'Thermosetting Polymer',
-                                children: ['polyester', 'polyurethane', 'vulcanized rubber', 'bakelite', 'urea-formaldehyde']
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
-
-        $scope.my_data = treedata_avm;
-
-        $scope.getAlbums();
+        $scope.getAlbumYears();
     }])
 ;
 

@@ -73,6 +73,40 @@ AlbumsBo.findAll = function(callback) {
     });
 };
 
+AlbumsBo.findAlbumYears = function(callback) {
+    var Albums = mongoose.model('Albums');
+    Albums.aggregate({$group:{_id:{name: '$year'}, total: {$sum:1}}}).exec(function(err, years) {
+        if(err)
+            console.log(err);
+        callback(err, years);
+    });
+};
+
+AlbumsBo.findAlbumMonthsByYear = function(year, callback) {
+    var Albums = mongoose.model('Albums');
+    Albums.aggregate([
+        {$match:{year:parseInt(year)} },
+        {$group:{
+            _id: {name: '$month', year: '$year'},
+            total: {$sum:1}}
+        }
+
+    ]).exec(function(err, months) {
+        if(err)
+            console.log(err);
+        callback(err, months);
+    });
+};
+
+AlbumsBo.findAlbumsByMonthAndYear = function(year, month, callback) {
+    var Albums = mongoose.model('Albums');
+    Albums.find({year: year, month: month}).exec(function(err, albums) {
+        if(err)
+            console.log(err);
+        callback(err, albums);
+    });
+};
+
 var buildAlbumObj = function(folderName, albumName, photoName) {
   var albumObj = {};
 

@@ -84,5 +84,35 @@ module.exports = function(router) {
             }
         });
     });
+
+    router.get('/albums/year', function(req, res) {
+        AlbumsBo.findAlbumYears(function(err, data){
+            if (err) {
+                console.log("Failure to get menu!")
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
+    router.get('/albums/month/:year', function(req, res) {
+        AlbumsBo.findAlbumMonthsByYear(req.params.year, function(err, data){
+            if (err) {
+                console.log("Failure to get menu!")
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
+    router.get('/albums/:year/:month', function(req, res) {
+        AlbumsBo.findAlbumsByMonthAndYear(req.params.year, req.params.month, function(err, data){
+            if (err) {
+                console.log("Failure to get menu!")
+            } else {
+                res.json(data);
+            }
+        });
+    });
     return router;
 };
