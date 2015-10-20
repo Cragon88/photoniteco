@@ -1,6 +1,7 @@
 var fs = require('fs');
 var mkdirp  = require('mkdirp');
 var path = require('path');
+var AlbumsBo = require('./bo/AlbumsBo.js');
 /**
  * check if folder exists, otherwise create it
  */
@@ -8,20 +9,16 @@ var folderApi = {};
 folderApi.checkExists = function checkExists(transporter, cb) {
   fs.exists(transporter.options.uploadDir, function(exists) {
     if (!exists) {
-      mkdirp(transporter.options.uploadDir, function(err) {
-        if (err) console.error(err);
-        else {
-          console.log('The uploads folder was not present, we have created it for you [' + transporter.options.uploadDir + ']');
-          mkdirp(path.join(transporter.options.uploadDir, 'thumbnail'), function(err) {
-            if (err) console.error(err);
-            else {
-              console.log('The uploads folder was not present, we have created it for you [' + path.join(transporter.options.uploadDir, 'thumbnail') + ']');
-              if(cb) cb();
-            }
-          });
+      mkdirp(path.join(transporter.options.uploadDir, 'thumbnail') , function(err) {
+        if (err) {
+          console.error(err);
+        } else {
+           console.log('The uploads folder was not present, we have created it for you [' + transporter.options.uploadDir + ']');
+           AlbumsBo.insert(transporter, function(err, datas){
+             if(cb) cb();
+           });
         }
       });
-      //throw new Error(dir + ' does not exists. Please create the folder');
     } else {
       if(cb) cb();
     }

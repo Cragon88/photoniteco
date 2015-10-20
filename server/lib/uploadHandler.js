@@ -67,7 +67,6 @@ function uploadService(opts) {
             });
 
             if (allFilesProccessed) {
-                console.log("All file uploaded!");
                 AlbumsBo.saveFileUploaded(transporter, files, function(err, album){
 
                 });
@@ -100,7 +99,6 @@ function uploadService(opts) {
                 transporter.albumFolderName = getStringCode(value);
             }
         }).on('file', function(name, file) {
-            console.log("A file uploaded!");
             var fileInfo = map[FileInfo.getFileKey(file.path)];
             fileInfo.update(file);
             if (!fileInfo.validate()) {

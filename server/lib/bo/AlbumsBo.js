@@ -8,17 +8,49 @@ var AlbumsBo = {};
 
 AlbumsBo.saveFileUploaded = function(transporter, files, cb) {
     var Albums = mongoose.model('Albums');
-    var album = buildAlbumObj(transporter.albumFolderName, transporter.albumName, [files[0].name]);
-    var albumArr = [album];
-    var albums = new Albums({year: transporter.albumYear, month: transporter.albumMonth, albums: albumArr});
-    albums.save(function(err, result){
-        debugger;
+    Albums.findOne({year: transporter.albumYear, month: transporter.albumMonth, 'album.albumName': transporter.albumName}).exec(function(err, result) {
         if(err) {
-            console.log(err)
-        } else if(!cb) {
-            cb(err, albums)
+            console.log(err);
+            cb(err, null);
+            return;
+        }
+
+        if (!result){
+            var albumNew = buildAlbumObj(transporter.albumFolderName, transporter.albumName, [files[0].name]);
+            var albums = new Albums({year: transporter.albumYear, month: transporter.albumMonth, album: albumNew});
+            albums.save(function(err, rs){
+                if(err)
+                console.log(err);
+                cb(err, rs);
+            });
+        } else {
+            result.album.photoNames.push([files[0].name]);
+            result.save(function(err, rs){
+                if(err) {
+                    console.log(err)
+                } else if(!cb) {
+                    cb(err, rs)
+                }
+            });
         }
     });
+};
+
+AlbumsBo.insert = function(transporter, cb) {
+    var Albums = mongoose.model('Albums');
+
+    var albumObj = {};
+    albumObj.folderName = transporter.albumFolderName;
+    albumObj.albumName = transporter.albumName;
+    albumObj.photoNames = [];
+    var albums = new Albums({year: transporter.albumYear, month: transporter.albumMonth, album: albumObj});
+
+    albums.save(function(err, rs){
+        if(err)
+            console.log(err);
+        cb(err, rs);
+    });
+
 };
 
 AlbumsBo.findByPhotoName = function(name, callback) {
@@ -43,7 +75,9 @@ AlbumsBo.findAll = function(callback) {
 
 var buildAlbumObj = function(folderName, albumName, photoName) {
   var albumObj = {};
+
     var photos = [photoName];
+
     albumObj.folderName = folderName;
     albumObj.albumName = albumName;
     albumObj.photoNames = photos;
