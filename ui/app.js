@@ -8,26 +8,40 @@ angular.module('myApp', deps)
 /*
 ------------------------Configurations----------------------------
 */
-    //.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    //    $urlRouterProvider.otherwise('/home');
-    //    $stateProvider
-    //        .state('home', {
-    //            url : '/home',
-    //            views: {
-    //                "main" : {
-    //                    templateUrl : '/html/album.html',
-    //                    controller : 'MainController'
-    //                }
-    //            }
-    //        })
-    //}])
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/home');
+        $stateProvider
+            .state('home', {
+                url : '/home',
+                views: {
+                    "main" : {
+                        templateUrl : '/html/home.html',
+                        controller : 'MainController'
+                    }
+                }
+            })
+            .state('album', {
+                views: {
+                    "main" : {
+                        templateUrl : '/html/album.html',
+                        controller : 'AlbumController'
+                    }
+                },
+                params: {data: null}
+            })
+            .state('upload', {
+                views: {
+                    "main" : {
+                        templateUrl : '/html/upload.html',
+                        controller : 'UploadController'
+                    }
+                }
+            })
+    }])
 /*
 ------------------------Controllers----------------------------
 */
-    .controller('MainController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
-        $scope.album = {};
-        $scope.albums = [];
-        $scope.content = '/html/album.html';
+    .controller('MainController', ['$rootScope', '$http', '$scope', '$state', function($rootScope, $http, $scope, $state) {
         $scope.my_data = [];
         $scope.my_tree = {};
         $scope.selectImg = function($index, img) {
@@ -44,14 +58,14 @@ angular.module('myApp', deps)
             show.modal();
             show.on('shown.bs.modal', function(){
                 $('#myModal .modal-body').html(html);
-                $('a.controls').trigger('click');
+                $('a.contralbumols').trigger('click');
             }).on('hidden.bs.modal', function(){
                 $('#myModal .modal-body').html('');
             });
         };
 
         $scope.goUpload = function() {
-            $scope.content = '/html/upload.html';
+            $state.go('upload');
         };
 
         $scope.selectImage = function(img) {
@@ -72,7 +86,7 @@ angular.module('myApp', deps)
 
         var createTreeNode = function(parent, album, type) {
             var node = {
-                label: album._id.name,
+                label: type === 'n' ? album.album.albumName : album._id.name,
                 children: [],
                 onSelect: function(branch) {
                     $scope.select(this, album, type);
@@ -106,7 +120,10 @@ angular.module('myApp', deps)
                         }
                     });
             } else {
-                //load albums
+                $http.get('/photos/' + album.year + '/' + album.month + '/' + album.album.folderName)
+                    .success(function(data, status, headers, config) {
+                        $state.go("album", {data : data});
+                    });
             }
         };
 
@@ -124,23 +141,18 @@ angular.module('myApp', deps)
                 });
         };
 
-        $scope.my_tree_handler = function(branch) {
-             console.log('1');
-             console.log(branch);
-        };
-
         $scope.my_treedata = [{
             label: 'Languages',
             children: ['Jade','Less','Coffeescript']
         }];
 
-        var apple_selected = function(branch) {
-            console.log('2');
-            console.log(branch);
-            return $scope.output = "APPLE! : " + branch.label;
-        };
-
         $scope.getAlbumYears();
+    }])
+    .controller('UploadController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
+
+    }])
+    .controller('AlbumController', ['$rootScope', '$http', '$scope', '$stateParams', function($rootScope, $http, $scope, $stateParams) {
+        $scope.data = $stateParams.data;
     }])
 ;
 

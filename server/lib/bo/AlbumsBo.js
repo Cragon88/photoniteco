@@ -107,6 +107,15 @@ AlbumsBo.findAlbumsByMonthAndYear = function(year, month, callback) {
     });
 };
 
+AlbumsBo.getPhotos = function(year, month, folderName, callback) {
+    var Albums = mongoose.model('Albums');
+    Albums.findOne({year: year, month: month, "album.folderName": folderName}).exec(function(err, albums) {
+        if(err)
+            console.log(err);
+        callback(err, albums);
+    });
+};
+
 var buildAlbumObj = function(folderName, albumName, photoName) {
   var albumObj = {};
 

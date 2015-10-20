@@ -114,5 +114,31 @@ module.exports = function(router) {
             }
         });
     });
+
+    router.get('/photos/:year/:month/:folderName', function(req, res) {
+        AlbumsBo.getPhotos(req.params.year, req.params.month, req.params.folderName, function(err, data){
+            if (err) {
+                console.log("Failure to get Photos!")
+            } else {
+                res.json(data);
+                console.log("data to get Photos!");
+                console.log(data);
+            }
+        });
+    });
+
+    router.get('/photo/file/:year/:month/:folderName/:name', function(req, res) {
+        uploader.getOriginalPhoto(req, res, function(err, data) {
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(data, 'binary');
+        });
+    });
+    router.get('/photo/thumbnail/:year/:month/:folderName/:name', function(req, res) {
+        uploader.getThumbnail(req, res, function(err, data) {
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(data, 'binary');
+        });
+    });
+
     return router;
 };
