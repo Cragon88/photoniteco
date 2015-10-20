@@ -9,8 +9,8 @@ var uriUtil = require('mongodb-uri');
  */
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
-var mongodbUri = 'mongodb://admin:123456@ds051843.mongolab.com:51843/photoniteco';
-//var mongodbUri = 'mongodb://thanhnv:123456@ds039674.mongolab.com:39674/mydatabase';
+//var mongodbUri = 'mongodb://admin:123456@ds051843.mongolab.com:51843/photoniteco';
+var mongodbUri = 'mongodb://thanhnv:123456@ds039674.mongolab.com:39674/mydatabase';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 mongoose.connect(mongooseUri, options);
 var db = mongoose.connection;
