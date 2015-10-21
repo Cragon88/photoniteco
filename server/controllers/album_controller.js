@@ -1,7 +1,8 @@
 var fs = require('fs');
+var constant = require('../constants');
 var options = {
-    tmpDir: __dirname + '/../uploaded/tmp',
-    uploadDir: __dirname + '/../uploaded/files',
+    tmpDir: constant.UPLOADED_FOLDER + '/tmp',
+    uploadDir: constant.UPLOADED_FOLDER + '/files',
     uploadUrl: '/uploaded/files/',
     maxPostSize: 11000000000, // 11 GB
     minFileSize: 1,

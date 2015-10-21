@@ -1,14 +1,15 @@
 /*jslint node: true */
 'use strict';
 
-var FileInfo = require('./fileinfo.js');
-var configs = require('./configs.js');
+var FileInfo = require('./fileinfo');
+var configs = require('./configs');
 var formidable = require('formidable');
 var fs = require('fs');
 var path = require('path');
-var folderApi     = require('./checkFolder.js');
+var folderApi     = require('./checkFolder');
 var dd = require('date-utils');
-var AlbumsBo = require('../../bo/AlbumsBo.js');
+var AlbumsBo = require('../../bo/AlbumsBo');
+var constants = require('../../constants');
 
 module.exports = uploadService;
 
@@ -106,7 +107,7 @@ function uploadService(opts) {
                 fs.unlink(file.path);
                 return;
             }
-            transporter.options.uploadDir = __dirname + '/../uploaded/'+transporter.albumYear+ '/' + parseInt(transporter.albumMonth)+ '/' +transporter.albumFolderName;
+            transporter.options.uploadDir = path.join(constants.UPLOADED_FOLDER, transporter.albumYear, parseInt(transporter.albumMonth).toString(), transporter.albumFolderName.toString());
             folderApi.checkExists(transporter, function() {
                 transporter.post(fileInfo, file, finish);
             });
@@ -133,7 +134,7 @@ function uploadService(opts) {
 
     fileUploader.getThumbsFile = function(req, res, callback) {
         var file = req.params.file;
-        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + parseInt(transporter.albumMonth)+ '/' +transporter.albumFolderName + '/thumbnail/'  + file, function (err, data) {
+        fs.readFile( path.join(constants.UPLOADED_FOLDER, transporter.albumYear, parseInt(transporter.albumMonth).toString(), transporter.albumFolderName.toString(), 'thumbnail', file), function (err, data) {
             if (err) console.log(err);
             callback(err, data);
         });
@@ -141,21 +142,21 @@ function uploadService(opts) {
 
     fileUploader.getFullSizeFile = function(req, res, callback) {
         var file = req.params.file;
-        fs.readFile( __dirname + '/../uploaded/'+transporter.albumYear+ '/' + parseInt(transporter.albumMonth)+ '/' +transporter.albumFolderName + '/' + file, function (err, data) {
+        fs.readFile( path.join(constants.UPLOADED_FOLDER, transporter.albumYear, parseInt(transporter.albumMonth).toString(), transporter.albumFolderName.toString(), file), function (err, data) {
             if (err) console.log(err);
             callback(err, data);
         });
     };
 
     fileUploader.getThumbnail = function(req, res, callback) {
-        fs.readFile( __dirname + '/../uploaded/'+req.params.year+ '/' + req.params.month+ '/' +req.params.folderName + '/thumbnail/'  + req.params.name, function (err, data) {
+        fs.readFile( path.join(constants.UPLOADED_FOLDER, req.params.year, req.params.month, req.params.folderName, 'thumbnail', req.params.name), function (err, data) {
             if (err) console.log(err);
             callback(err, data);
         });
     };
 
     fileUploader.getOriginalPhoto = function(req, res, callback) {
-        fs.readFile( __dirname + '/../uploaded/'+req.params.year+ '/' + req.params.month+ '/' +req.params.folderName + '/' + req.params.name, function (err, data) {
+        fs.readFile( path.join(constants.UPLOADED_FOLDER, req.params.year, req.params.month, req.params.folderName, req.params.name), function (err, data) {
             if (err) console.log(err);
             callback(err, data);
         });
