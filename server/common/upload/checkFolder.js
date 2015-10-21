@@ -1,7 +1,7 @@
 var fs = require('fs');
 var mkdirp  = require('mkdirp');
 var path = require('path');
-var AlbumsBo = require('./bo/AlbumsBo.js');
+var AlbumsBo = require('../../bo/AlbumsBo.js');
 /**
  * check if folder exists, otherwise create it
  */

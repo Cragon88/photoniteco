@@ -3,7 +3,7 @@
 
 var fs              = require('fs');
 var AWS             = require('aws-sdk');
-var FileInfo        = require('../fileinfo.js');
+var FileInfo        = require('../upload/fileinfo.js');
 module.exports = function (opts){
 
     var configs = opts.storage.aws;

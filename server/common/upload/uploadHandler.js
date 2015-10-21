@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var folderApi     = require('./checkFolder.js');
 var dd = require('date-utils');
-var AlbumsBo = require('./bo/AlbumsBo.js');
+var AlbumsBo = require('../../bo/AlbumsBo.js');
 
 module.exports = uploadService;
 

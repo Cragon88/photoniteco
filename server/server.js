@@ -19,14 +19,14 @@ db.once('open', function callback () {
   console.log('Database connect successfully!')
 });
 
-require('./models/Albums.js');
+require('./models/albums.js');
 
 /*
  * Configure application
  */
 var app = express();
-//require("./routes/routes.js")(app);
-require('./routes/uploadManager')(app);
+require('./services/album_service')(app);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser());
 app.use(express.static(path.dirname(__dirname) + '/ui'));
