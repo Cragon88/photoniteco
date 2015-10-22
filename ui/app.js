@@ -1,5 +1,5 @@
 
-var deps = ['angularBootstrapNavTree', 'ui.router'];
+var deps = ['angularBootstrapNavTree', 'ui.bootstrap', 'ui.router'];
 
 if (angular.version.full.indexOf("1.2") >= 0) {
     deps.push('ngAnimate');
@@ -148,6 +148,30 @@ angular.module('myApp', deps)
 
         $scope.getAlbumYears();
     }])
+    .controller('TypeaheadCtrl', function($scope, $http) {
+
+        $scope.selected = undefined;
+        $scope.date = undefined;
+        $scope.states = [];
+
+        $scope.changeDate = function() {
+            var parts = $scope.date.split('/');
+            var albumYear = parts[2];
+            var albumMonth = parts[0];
+
+            $http.get('/albums/' + albumYear + '/' + albumMonth)
+                .success(function(data, status, headers, config) {
+                    var albumNames = [];
+                    if(data) {
+                        data.forEach(function(value, index, ar) {
+                            albumNames.push(value.album.albumName);
+                        });
+                    }
+
+                    $scope.states = albumNames;
+                });
+        }
+    })
     .controller('UploadController', ['$rootScope', '$http', '$scope', function($rootScope, $http, $scope) {
 
     }])
