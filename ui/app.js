@@ -94,7 +94,13 @@ angular.module('myApp', deps)
                 }
             };
             if (typeof(parent.children) != "undefined") {
-                parent.children.push(node);
+                var found = false;
+                for (var i=0; i<parent.children.length;i++) {
+                    if (parent.children[i].label === node.label) {
+                        found = true;
+                    }
+                }
+                if (!found) parent.children.push(node);
             } else {
                 parent.children = [];
                 parent.children.push(node);
